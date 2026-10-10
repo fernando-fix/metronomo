@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metrônomo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Metrônomo</h1>
+
+    <div class="beats" id="beats" aria-hidden="true"></div>
+
+    <section class="tempo-display">
+      <span class="bpm-value" id="bpmDisplay">120</span>
+      <span class="bpm-label">BPM</span>
+      <span class="current-bpm" id="currentBpm"></span>
+    </section>
+
+    <section class="control">
+      <label for="bpmSlider">Andamento</label>
+      <input type="range" id="bpmSlider" min="30" max="300" value="120" step="1" />
+      <div class="bpm-buttons">
+        <button id="bpmMinus" type="button" aria-label="Diminuir 1 BPM">&minus;</button>
+        <button id="bpmPlus" type="button" aria-label="Aumentar 1 BPM">+</button>
+      </div>
+    </section>
+
+    <section class="control">
+      <label for="timeSig">Compasso</label>
+      <select id="timeSig">
+        <option value="2">2 / 4</option>
+        <option value="3">3 / 4</option>
+        <option value="4" selected>4 / 4</option>
+        <option value="6">6 / 8</option>
+      </select>
+    </section>
+
+    <section class="control accel">
+      <div class="accel-header">
+        <label for="accelToggle">Aceleração gradual</label>
+        <label class="switch">
+          <input type="checkbox" id="accelToggle" />
+          <span class="slider-switch"></span>
+        </label>
+      </div>
+      <div class="accel-options" id="accelOptions">
+        <div class="field">
+          <label for="targetBpm">BPM final</label>
+          <input type="number" id="targetBpm" min="30" max="300" value="160" />
+        </div>
+        <div class="field">
+          <label for="stepBpm">Incremento (BPM)</label>
+          <input type="number" id="stepBpm" min="1" max="50" value="2" />
+        </div>
+        <div class="field">
+          <label for="everyBars">A cada N compassos</label>
+          <input type="number" id="everyBars" min="1" max="64" value="4" />
+        </div>
+      </div>
+    </section>
+
+    <section class="control volume">
+      <label for="volume">Volume</label>
+      <div class="volume-row">
+        <input type="range" id="volume" min="0" max="100" value="80" />
+        <button id="muteBtn" type="button" class="icon-btn" aria-label="Mudo" aria-pressed="false">&#128266;</button>
+      </div>
+    </section>
+
+    <button id="playBtn" type="button" class="play-btn">Iniciar</button>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

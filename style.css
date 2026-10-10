@@ -1,0 +1,337 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0f1120;
+  --panel: #1a1d30;
+  --panel-2: #232741;
+  --accent: #4f8cff;
+  --accent-2: #6ee7b7;
+  --accent-hot: #ff6b6b;
+  --text: #e8ecf7;
+  --muted: #8b93b0;
+  --border: #2d3350;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at 20% 0%, #1b2140 0%, var(--bg) 55%);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.container {
+  width: 100%;
+  max-width: 460px;
+  background: var(--panel);
+  border: 1px solid #2d3350;
+  border-radius: 22px;
+  padding: 28px 26px 32px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.beats {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  height: 22px;
+  margin-bottom: 10px;
+}
+
+.beat-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--panel-2);
+  border: 1px solid #3a4067;
+  transition: transform 0.08s ease, background 0.08s ease, box-shadow 0.08s ease;
+}
+
+.beat-dot.active {
+  background: var(--accent);
+  transform: scale(1.35);
+  box-shadow: 0 0 16px rgba(79, 140, 255, 0.9);
+}
+
+.beat-dot.active.accent {
+  background: var(--accent-2);
+  box-shadow: 0 0 20px rgba(110, 231, 183, 0.95);
+}
+
+.tempo-display {
+  position: relative;
+  text-align: center;
+  margin: 6px 0 22px;
+}
+
+.bpm-value {
+  font-size: 4.2rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.15s ease;
+}
+
+.bpm-value.accelerating {
+  color: var(--accent-2);
+}
+
+.bpm-label {
+  display: block;
+  color: var(--muted);
+  letter-spacing: 0.25em;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.current-bpm {
+  display: block;
+  min-height: 1.1em;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.control {
+  margin-bottom: 20px;
+}
+
+.control > label {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent) var(--fill, 33%), var(--panel-2) var(--fill, 33%));
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--accent);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(79, 140, 255, 0.6);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--accent);
+  cursor: pointer;
+}
+
+.bpm-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.bpm-buttons button {
+  flex: 1;
+  padding: 10px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid #3a4067;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.bpm-buttons button:hover {
+  background: #2c3152;
+}
+
+.bpm-buttons button:active {
+  transform: scale(0.96);
+}
+
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 11px 12px;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid #3a4067;
+  border-radius: 12px;
+  outline: none;
+}
+
+select:focus,
+input[type="number"]:focus {
+  border-color: var(--accent);
+}
+
+.accel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.accel-header > label {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider-switch {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  background: var(--panel-2);
+  border: 1px solid #3a4067;
+  border-radius: 99px;
+  transition: 0.25s;
+}
+
+.slider-switch::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.25s;
+}
+
+.switch input:checked + .slider-switch {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+}
+
+.switch input:checked + .slider-switch::before {
+  transform: translateX(22px);
+}
+
+.accel-options {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+}
+
+.accel-options.open {
+  max-height: 320px;
+  opacity: 1;
+}
+
+.field label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.field input[type="number"] {
+  font-size: 0.95rem;
+  padding: 9px 10px;
+}
+
+.volume-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-btn {
+  font-size: 1.15rem;
+  background: var(--panel-2);
+  border: 1px solid #3a4067;
+  border-radius: 12px;
+  width: 46px;
+  height: 42px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.icon-btn:hover {
+  background: #2c3152;
+}
+
+.icon-btn.muted {
+  color: var(--accent-hot);
+  border-color: var(--accent-hot);
+}
+
+.play-btn {
+  width: 100%;
+  padding: 18px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), #3a6fe0);
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.15s ease, background 0.2s ease;
+  box-shadow: 0 10px 24px rgba(79, 140, 255, 0.35);
+}
+
+.play-btn:hover {
+  box-shadow: 0 12px 30px rgba(79, 140, 255, 0.5);
+}
+
+.play-btn:active {
+  transform: scale(0.98);
+}
+
+.play-btn.playing {
+  background: linear-gradient(135deg, var(--accent-hot), #d64545);
+  box-shadow: 0 10px 24px rgba(255, 107, 107, 0.4);
+}
